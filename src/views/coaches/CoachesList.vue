@@ -1,6 +1,6 @@
 <template>
     <section>
-        FILTER
+        <coach-filter @change-filter="setFilters"></coach-filter>
     </section>
     <section>
         <base-card>
@@ -20,23 +20,50 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core';
+import { computed, reactive } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 import CoachItem from '../../components/coaches/CoachItem.vue';
+import CoachFilter from '../../components/coaches/CoachFilter.vue';
 
 export default {
-  components: { CoachItem },
+  components: { CoachItem, CoachFilter },
     setup() {
         const $store = useStore();
+        const model = reactive({
+            activeFilters: {
+                frontend: true,
+                backend: true,
+                career: true
+            }
+        });
+
+        const setFilters = (updatedFilters) => {
+            model.activeFilters = updatedFilters;
+        };
 
         const filteredCoaches = computed(() => {
-            return $store.getters['coachesModule/coaches'];
+            //return $store.getters['coachesModule/coaches'];
+            const coaches = $store.getters['coachesModule/coaches'];
+            return coaches.filter(coach => {
+                if(model.activeFilters.frontend && coach.areas.includes('frontend')){
+                    return true;
+                }
+                if(model.activeFilters.backend && coach.areas.includes('backend')){
+                    return true;
+                }
+                if(model.activeFilters.career && coach.areas.includes('career')){
+                    return true;
+                }
+                return false;
+            });
         });
         const hasCoaches = computed(()=>{
             return $store.getters['coachesModule/hasCoaches'];
         })
 
         return {
+            model,
+            setFilters,
             filteredCoaches,
             hasCoaches
         }
