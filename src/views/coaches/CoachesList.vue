@@ -21,7 +21,7 @@
 
 <script>
 import { computed } from '@vue/runtime-core';
-import { useStore } from 'vuex'
+import { useStore } from 'vuex';
 import CoachItem from '../../components/coaches/CoachItem.vue';
 
 export default {
