@@ -1,1 +1,5 @@
-export default {};
+export default {
+    mutRegisterCoach(state, payload) {
+        state.coaches.push(payload);
+    }
+};

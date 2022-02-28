@@ -36,9 +36,10 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
+import { reactive } from '@vue/reactivity';
+
 export default {
-    setup() {
+    setup(props, context) {
         const model = reactive({
             formData: {
                 firstName: '',
@@ -51,6 +52,7 @@ export default {
 
         const submitForm = () => {
             console.log(model.formData);
+            context.emit('save-data', model.formData);
         };
 
         return {
