@@ -6,9 +6,12 @@
         <base-card>
             <div class="controls">
                 <base-button mode="outline" @click.prevent="loadCoaches">Refresh</base-button>
-                <base-button v-if="!isCoach" link to="/register">Register as Coach</base-button>
+                <base-button v-if="!isCoach && !model.isLoading" link to="/register">Register as Coach</base-button>
             </div>
-            <ul v-if="hasCoaches">
+            <div v-if="model.isLoading">
+                <base-spinner></base-spinner>
+            </div>
+            <ul v-else-if="hasCoaches">
                 <!-- <li v-for="coach in filteredCoaches" :key="coach.id">
                     {{coach.firstName}}
                 </li> -->
@@ -34,14 +37,17 @@ export default {
                 frontend: true,
                 backend: true,
                 career: true
-            }
+            },
+            isLoading: false
         });
 
         const setFilters = (updatedFilters) => {
             model.activeFilters = updatedFilters;
         };
-        const loadCoaches = () => {
-            $store.dispatch('coachesModule/loadCoaches');
+        const loadCoaches = async () => {
+            model.isLoading = true;
+            await $store.dispatch('coachesModule/loadCoaches');
+            model.isLoading = false;
         };
 
         const isCoach = computed(() => {
@@ -64,7 +70,7 @@ export default {
             });
         });
         const hasCoaches = computed(()=>{
-            return $store.getters['coachesModule/hasCoaches'];
+            return !model.isLoading && $store.getters['coachesModule/hasCoaches'];
         })
 
         onMounted(() => {
