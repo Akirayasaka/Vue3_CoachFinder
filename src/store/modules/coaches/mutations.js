@@ -4,5 +4,8 @@ export default {
     },
     mutSetCoaches(state, payload) {
         state.coaches = payload;
+    },
+    mutSetFetchTimestamp(state) {
+        state.lastFetch = new Date().getTime();
     }
 };
