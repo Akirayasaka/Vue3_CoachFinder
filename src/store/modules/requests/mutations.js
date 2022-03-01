@@ -1,5 +1,5 @@
 export default {
-    muAddRequest(state, payload){
+    mutAddRequest(state, payload){
         state.requests.push(payload);
     }
 };

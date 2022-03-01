@@ -5,7 +5,7 @@
     <section>
         <base-card>
             <div class="controls">
-                <base-button mode="outline">Refresh</base-button>
+                <base-button mode="outline" @click.prevent="loadCoaches">Refresh</base-button>
                 <base-button v-if="!isCoach" link to="/register">Register as Coach</base-button>
             </div>
             <ul v-if="hasCoaches">
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { computed, reactive } from '@vue/runtime-core';
+import { computed, onMounted, reactive } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 import CoachItem from '../../components/coaches/CoachItem.vue';
 import CoachFilter from '../../components/coaches/CoachFilter.vue';
@@ -39,6 +39,9 @@ export default {
 
         const setFilters = (updatedFilters) => {
             model.activeFilters = updatedFilters;
+        };
+        const loadCoaches = () => {
+            $store.dispatch('coachesModule/loadCoaches');
         };
 
         const isCoach = computed(() => {
@@ -64,8 +67,13 @@ export default {
             return $store.getters['coachesModule/hasCoaches'];
         })
 
+        onMounted(() => {
+            loadCoaches();
+        });
+
         return {
             model,
+            loadCoaches,
             setFilters,
             isCoach,
             filteredCoaches,

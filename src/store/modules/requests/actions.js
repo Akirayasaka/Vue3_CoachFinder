@@ -7,6 +7,6 @@ export default {
             userEmail: payload.email,
             message: payload.message
         };
-        context.commit('muAddRequest', newRequest);
+        context.commit('mutAddRequest', newRequest);
     }
 };
