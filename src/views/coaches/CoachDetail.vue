@@ -55,7 +55,7 @@ export default {
         });
 
         onMounted(()=>{
-            console.log($store.getters['coachesModule/coaches']);
+            //console.log($store.getters['coachesModule/coaches']);
             model.selectedCoach = $store.getters['coachesModule/coaches'].find(c => c.id === props.id);
         });
 
