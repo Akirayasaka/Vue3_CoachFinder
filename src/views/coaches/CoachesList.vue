@@ -1,4 +1,7 @@
 <template>
+    <base-dialog :show="!!model.error" title="An error occurred!" @close="handleError">
+        <p>{{ model.error }}</p>
+    </base-dialog>
     <section>
         <coach-filter @change-filter="setFilters"></coach-filter>
     </section>
@@ -38,7 +41,8 @@ export default {
                 backend: true,
                 career: true
             },
-            isLoading: false
+            isLoading: false,
+            error: null
         });
 
         const setFilters = (updatedFilters) => {
@@ -46,8 +50,15 @@ export default {
         };
         const loadCoaches = async () => {
             model.isLoading = true;
-            await $store.dispatch('coachesModule/loadCoaches');
+            try{
+                await $store.dispatch('coachesModule/loadCoaches');
+            }catch(error){
+                model.error = error.message || 'Something went wrong!';
+            }
             model.isLoading = false;
+        };
+        const handleError = () => {
+            model.error = null;
         };
 
         const isCoach = computed(() => {
@@ -80,6 +91,7 @@ export default {
         return {
             model,
             loadCoaches,
+            handleError,
             setFilters,
             isCoach,
             filteredCoaches,
