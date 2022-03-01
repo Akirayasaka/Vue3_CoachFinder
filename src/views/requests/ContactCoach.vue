@@ -27,7 +27,8 @@ export default {
                 email: '',
                 message: '',
                 formIsValid: true
-            }
+            },
+            error: null
         });
         const $store = useStore();
         const $route = useRoute();
