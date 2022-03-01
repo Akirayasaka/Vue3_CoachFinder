@@ -41,7 +41,8 @@ export default {
             return model.selectedCoach !== null ? model.selectedCoach?.firstName + ' ' + model.selectedCoach?.lastName : '';
         });
         const contactLink = computed(() => {
-            return model.selectedCoach !== null ? $route.path + '/' + props.id + '/contact' : '' ;
+            //return model.selectedCoach !== null ? $route.path + '/' + props.id + '/contact' : '' ;
+            return model.selectedCoach !== null ? $route.path + '/contact' : '' ;
         });
         const areas = computed(() => {
             return model.selectedCoach !== null ? model.selectedCoach.areas : [];

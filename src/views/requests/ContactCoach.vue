@@ -17,6 +17,8 @@
 
 <script>
 import { reactive } from '@vue/reactivity';
+import { useStore } from 'vuex';
+import { useRoute, useRouter } from "vue-router";
 
 export default {
     setup() {
@@ -27,6 +29,9 @@ export default {
                 formIsValid: true
             }
         });
+        const $store = useStore();
+        const $route = useRoute();
+        const $router = useRouter();
 
         const submitForm = () => {
             model.formData.formIsValid = true;
@@ -36,10 +41,13 @@ export default {
             }
             
             const dto = {
+                coachId: $route.params.id,
                 email: model.formData.email,
                 message: model.formData.message
             }
             console.log(dto);
+            $store.dispatch('requestsModule/contactCoach', dto);
+            $router.replace('/coaches');
         }
 
         return {

@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 
 import coachesModule from './modules/coaches/index.js';
+import requestsModule from './modules/requests/index.js';
 
 export default createStore({
   strict: true,
@@ -10,7 +11,8 @@ export default createStore({
   actions: {},
   mutations: {},
   modules: {
-    coachesModule
+    coachesModule,
+    requestsModule
   },
   getters: {
     getUserId(state) {
