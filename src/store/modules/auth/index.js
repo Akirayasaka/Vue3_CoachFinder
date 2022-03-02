@@ -3,9 +3,11 @@ import actions from './actions.js';
 import getters from './getters.js';
 
 export default {
-  namespaced: true,
+  //namespaced: true, 註冊為全域
   state: {
-    userId: 'c3'
+    userId: null,
+    token: null,
+    tokenExpiration: null
   },
   actions,
   mutations,

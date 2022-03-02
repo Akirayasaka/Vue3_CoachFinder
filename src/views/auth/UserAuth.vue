@@ -11,7 +11,7 @@
       </div>
       <br/>
       <p v-if="!model.formIsValid">Please enter a valid email and password(must be at least 6 characters long.)</p>
-      <base-button>{{submitButtonCaption}}</base-button>
+      <base-button @click.prevent="submitForm">{{submitButtonCaption}}</base-button>
       <base-button type="button" mode="flat" @click.prevent="switchAuthMode">{{switchModeButtonCaption}}</base-button>
     </form>
   </base-card>
@@ -20,6 +20,7 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import { computed } from '@vue/runtime-core';
+import { useStore } from 'vuex';
 
 export default {
   setup() {
@@ -31,6 +32,7 @@ export default {
       formIsValid: true,
       mode: 'login'
     });
+    const $store = useStore();
 
     const submitForm = () => {
       model.formIsValid = true;
@@ -39,6 +41,12 @@ export default {
         return;
       }
       // send http request
+      if(model.mode === 'login'){
+        console.log(model.formData);
+      }else{
+        // vuex auth沒有namespaced, 可直接呼叫
+        $store.dispatch('signup', model.formData);
+      }
     };
     const switchAuthMode = () =>{
       if(model.mode === 'login'){
