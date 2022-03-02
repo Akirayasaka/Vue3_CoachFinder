@@ -60,7 +60,7 @@ export default {
       // send http request
       try {
         if (model.mode === 'login') {
-          console.log(model.formData);
+          await $store.dispatch('login', model.formData);
         } else {
           // vuex auth沒有namespaced, 可直接呼叫
           await $store.dispatch('signup', model.formData);
