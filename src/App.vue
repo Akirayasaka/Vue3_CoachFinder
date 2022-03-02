@@ -8,20 +8,37 @@
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core';
+import { computed, onMounted, watch } from '@vue/runtime-core';
 import TheHeader from './components/layout/TheHeader.vue';
 import { useStore } from 'vuex';
+import { useRouter } from "vue-router";
 
 export default {
     components: {
         TheHeader
     },
     setup() {
-        const $store = useStore();
+      const $router = useRouter();
+      const $store = useStore();
+
+        const didAutoLogout = computed(() => {
+          return $store.getters.didAutoLogout;
+        });
 
         onMounted(() => {
           $store.dispatch('tryLogin');
         });
+
+        watch(didAutoLogout, (newValue, oldValue) => {
+          console.log(newValue, oldValue);
+          if(newValue && newValue !== oldValue) {
+            $router.replace('/coaches');
+          }
+        });
+
+        return {
+          
+        }
     },
 }
 </script>
