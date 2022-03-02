@@ -10,7 +10,8 @@
             <base-card>
                 <div class="controls">
                     <base-button mode="outline" @click.prevent="loadCoaches(true)">Refresh</base-button>
-                    <base-button v-if="!isCoach && !model.isLoading" link to="/register">Register as Coach</base-button>
+                    <base-buttion link to="/auth" v-if="!isLoggedIn">Login</base-buttion>
+                    <base-button v-if="isLoggedIn && !isCoach && !model.isLoading" link to="/register">Register as Coach</base-button>
                 </div>
                 <div v-if="model.isLoading">
                     <base-spinner></base-spinner>
@@ -63,6 +64,9 @@ export default {
             model.error = null;
         };
 
+        const isLoggedIn = computed(()=>{
+            return $store.getters.isAuthenticated;
+        });
         const isCoach = computed(() => {
             return $store.getters['coachesModule/isCoach'];
         });
@@ -96,6 +100,7 @@ export default {
             handleError,
             setFilters,
             isCoach,
+            isLoggedIn,
             filteredCoaches,
             hasCoaches
         }

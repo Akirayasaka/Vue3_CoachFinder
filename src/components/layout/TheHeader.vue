@@ -4,11 +4,31 @@
             <h2><router-link to="/">Find a Coach</router-link></h2>
             <ul>
                 <li><router-link to="/coaches">All Coaches</router-link></li>
-                <li><router-link to="/requests">Requests</router-link></li>
+                <li v-if="isLoggedIn"><router-link to="/requests">Requests</router-link></li>
+                <li v-else><router-link to="/auth">Login</router-link></li>
             </ul>
         </nav>
     </header>
 </template>
+
+<script>
+import { computed } from '@vue/runtime-core';
+import { useStore } from 'vuex';
+
+export default {
+  setup() {
+    const $store = useStore();
+
+    const isLoggedIn = computed(()=>{
+      return $store.getters.isAuthenticated;
+    });
+
+    return {
+      isLoggedIn
+    }
+  },
+}
+</script>
 
 <style scoped>
 header {

@@ -1,7 +1,7 @@
 export default {
     async login(context, payload){
         // firebase restAPI: https://firebase.google.com/docs/reference/rest/auth
-        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD1BsioYh4F6rbTdqYNpZYEGuoy1PPF3_Q`, {
+        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]`, {
             method: 'POST',
             body: JSON.stringify({
                 email: payload.email,
@@ -26,7 +26,7 @@ export default {
         });
     },
     async signup(context, payload){
-        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD1BsioYh4F6rbTdqYNpZYEGuoy1PPF3_Q`, {
+        const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]`, {
             method: 'POST',
             body: JSON.stringify({
                 email: payload.email,
