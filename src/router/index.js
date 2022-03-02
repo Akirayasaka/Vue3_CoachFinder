@@ -7,6 +7,7 @@ import CoachRegistration from '../views/coaches/CoachRegistration.vue';
 import ContactCoach from '../views/requests/ContactCoach.vue';
 import RequestsReceive from '../views/requests/RequestsReceive.vue';
 import NotFound from '../views/NotFound.vue';
+import UserAuth from '../views/auth/UserAuth.vue';
 // #endregion
 
 const router = createRouter({
@@ -24,6 +25,7 @@ const router = createRouter({
         },
         { path: '/register', component: CoachRegistration },
         { path: '/requests', component: RequestsReceive },
+        { path: '/auth', component: UserAuth},
         { path: '/:notFound(.*)', component: NotFound }
     ]
 });
