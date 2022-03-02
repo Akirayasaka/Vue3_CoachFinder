@@ -6,6 +6,9 @@
                 <li><router-link to="/coaches">All Coaches</router-link></li>
                 <li v-if="isLoggedIn"><router-link to="/requests">Requests</router-link></li>
                 <li v-else><router-link to="/auth">Login</router-link></li>
+                <li v-if="isLoggedIn">
+                  <base-button @click.prevent="logout">Logout</base-button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -19,12 +22,17 @@ export default {
   setup() {
     const $store = useStore();
 
+    const logout = () => {
+      $store.dispatch('logout');
+    };
+
     const isLoggedIn = computed(()=>{
       return $store.getters.isAuthenticated;
     });
 
     return {
-      isLoggedIn
+      isLoggedIn,
+      logout
     }
   },
 }

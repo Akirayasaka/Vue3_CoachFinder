@@ -49,5 +49,12 @@ export default {
             userId: responseData.localId,
             tokenExpiration: responseData.expiresIn
         });
+    },
+    logout(context) {
+        context.commit('mutSetUser', {
+            token: null,
+            userId: null,
+            tokenExpiration: null
+        });
     }
 };
