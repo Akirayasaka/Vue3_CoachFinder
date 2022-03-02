@@ -8,14 +8,20 @@
 </template>
 
 <script>
+import { onMounted } from '@vue/runtime-core';
 import TheHeader from './components/layout/TheHeader.vue';
+import { useStore } from 'vuex';
 
 export default {
     components: {
         TheHeader
     },
     setup() {
-        
+        const $store = useStore();
+
+        onMounted(() => {
+          $store.dispatch('tryLogin');
+        });
     },
 }
 </script>
