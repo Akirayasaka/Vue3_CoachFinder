@@ -20,6 +20,7 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import { computed } from '@vue/runtime-core';
+
 export default {
   setup() {
     const model = reactive({
