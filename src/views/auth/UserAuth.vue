@@ -29,6 +29,7 @@
 import { reactive } from '@vue/reactivity';
 import { computed } from '@vue/runtime-core';
 import { useStore } from 'vuex';
+import { useRoute ,useRouter } from "vue-router";
 
 export default {
   setup() {
@@ -43,6 +44,8 @@ export default {
       error: null,
     });
     const $store = useStore();
+    const $route = useRoute();
+    const $router = useRouter();
 
     const submitForm = async () => {
       model.formIsValid = true;
@@ -65,6 +68,8 @@ export default {
           // vuex auth沒有namespaced, 可直接呼叫
           await $store.dispatch('signup', model.formData);
         }
+        const url = '/' + ($route.query.redirect || 'coaches');
+        $router.replace(url);
       } catch (err) {
         model.error = err.message || 'Failed to authenticate, try later.';
       }

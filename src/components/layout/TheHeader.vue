@@ -17,13 +17,16 @@
 <script>
 import { computed } from '@vue/runtime-core';
 import { useStore } from 'vuex';
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const $store = useStore();
+    const $router = useRouter();
 
     const logout = () => {
       $store.dispatch('logout');
+      $router.replace('/coaches');
     };
 
     const isLoggedIn = computed(()=>{
