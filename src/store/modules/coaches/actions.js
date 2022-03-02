@@ -9,8 +9,11 @@ export default {
             areas: data.areas
         };
 
+        // coaches->index.js 有 namespaced 屬性, 需要從底層取得token
+        const token = context.rootGetters.getToken;
+
         // Use FireBase for backend
-        const response = await fetch(`https://vue-http-demo-82225-default-rtdb.firebaseio.com/coaches/${userId}.json`, {
+        const response = await fetch(`https://vue-http-demo-82225-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=${token}`, {
             method: 'PUT',
             body: JSON.stringify(coachData)
         });

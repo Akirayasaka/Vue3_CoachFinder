@@ -28,7 +28,9 @@ export default {
     },
     async fetchRequests(context){
         const coachId = context.rootGetters.userId;
-        const response = await fetch(`https://vue-http-demo-82225-default-rtdb.firebaseio.com/requests/${coachId}.json`);
+        // requests -> index.js 有 namespaced 屬性, 需要從底層取得token
+        const token = context.rootGetters.getToken;
+        const response = await fetch(`https://vue-http-demo-82225-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=${token}`);
         const responseData = await response.json();
 
         if(!response.ok){
