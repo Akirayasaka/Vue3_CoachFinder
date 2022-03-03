@@ -11,6 +11,14 @@ import UserAuth from '../views/auth/UserAuth.vue';
 // #endregion
 import store from '../store/index.js';
 
+// #region Asynchronous Components(非同步元件, 預設不會載入, 需要時才下載), 不建議在routing使用
+//import { defineAsyncComponent } from "vue";
+//const CoachDetail = defineAsyncComponent(() => import('../views/coaches/CoachDetail.vue'));
+//const CoachRegistration = defineAsyncComponent(() => import('../views/coaches/CoachRegistration.vue'));
+//const ContactCoach = defineAsyncComponent(() => import('../views/requests/ContactCoach.vue'));
+//const UserAuth =defineAsyncComponent(() => import('../views/auth/UserAuth.vue'));
+// #endregion
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
